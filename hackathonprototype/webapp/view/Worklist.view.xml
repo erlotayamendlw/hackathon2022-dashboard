@@ -1,0 +1,128 @@
+<mvc:View
+    controllerName="hackathonprototype.controller.Worklist"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic">
+
+    <semantic:SemanticPage
+        id="page"
+        headerPinnable="false"
+        toggleHeaderOnTitleClick="false"
+        showFooter="true">
+
+        <semantic:titleHeading>
+            <Title
+                text="{i18n>worklistTitle}"
+                level="H2"/>
+        </semantic:titleHeading>
+
+        <semantic:headerContent>
+            <IconTabBar
+                id="iconTabBar"
+                select=".onQuickFilter"
+                expandable="false">
+                <items>
+                    <IconTabFilter
+                        key="all"
+                        showAll="true"
+                        count="{worklistView>/countAll}"
+                        text="{i18n>WorklistFilterProductsAll}"/>
+                    <IconTabSeparator/>
+                    <IconTabFilter
+                        key="Delivered"
+                        icon="sap-icon://message-success"
+                        iconColor="Positive"
+                        count="{worklistView>/Delivered}"
+                        text="{i18n>WorklistFilterDelivered}"/>
+                    <IconTabFilter
+                        key="EnRoute"
+                        icon="sap-icon://message-warning"
+                        iconColor="Critical"
+                        count="{worklistView>/EnRoute}"
+                        text="{i18n>WorklistFilterEnRoute}"/>
+                    <IconTabFilter
+                        key="ToBeDelivered"
+                        icon="sap-icon://message-error"
+                        iconColor="Negative"
+                        count="{worklistView>/ToBeDelivered}"
+                        text="{i18n>WorklistFilterToBeDelivered}"/>
+                </items>
+            </IconTabBar>
+        </semantic:headerContent>
+
+        <semantic:content>
+            <Table
+                id="table"
+                width="auto"
+                mode="MultiSelect"
+                items="{
+                    path: '/SalesOrder',
+                    sorter: {
+                        path: 'OrderID',
+                        descending: false
+                    }
+                }"
+                noDataText="{worklistView>/tableNoDataText}"
+                busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+                growing="true"
+                growingScrollToLoad="true"
+                updateFinished=".onUpdateFinished">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                            id="tableHeader"
+                            text="{worklistView>/worklistTableTitle}"
+                            level="H3"/>
+                        <ToolbarSpacer />
+                        <SearchField
+                            id="searchField"
+                            tooltip="{i18n>worklistSearchTooltip}"
+                            search=".onSearch">
+                            <layoutData>
+                                <OverflowToolbarLayoutData
+                                    maxWidth="200px"
+                                    priority="NeverOverflow"/>
+                            </layoutData>
+                        </SearchField>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column id="nameColumn">
+                        <Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+                    </Column>
+                    <Column id="CustomerIDColumn">
+                        <Text text="{i18n>tableCustomerIDColumnTitle}" id="CustomerIDColumnTitle"/>
+                    </Column>
+                    <Column id="StatusIDColumn">
+		                <Text text="{i18n>tableStatusIDColumnTitle}" id="StatusIDColumnTitle"/>
+	                </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                        type="Navigation"
+                        press=".onPress">
+                        <cells>
+                            <ObjectIdentifier
+                                title="{OrderID}"/>
+                            <Text text = "{CustomerID}"/>
+                            <Text text = "{Status_ID}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+
+        <semantic:sendEmailAction>
+            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+        </semantic:sendEmailAction>
+
+     <semantic:positiveAction>
+		  <semantic:PositiveAction text="{i18n>TableProductsReorder}" press=".onUpdateStockObjects"/>
+	 </semantic:positiveAction>
+
+    </semantic:SemanticPage>
+
+</mvc:View>

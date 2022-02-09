@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="1.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SciValleyServices" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SalesOrder">
+                <Key>
+                    <PropertyRef Name="OrderID">
+                    </PropertyRef>
+                    <PropertyRef Name="CustomerID">
+                    </PropertyRef>
+                </Key>
+                <Property Name="OrderID" Type="Edm.Int32" Nullable="false">
+                </Property>
+                <Property Name="CustomerID" Type="Edm.Int32" Nullable="false">
+                </Property>
+                <Property Name="DeviceID" Type="Edm.String" MaxLength="20">
+                </Property>
+                <Property Name="LocationID" Type="Edm.String" MaxLength="40">
+                </Property>
+                <Property Name="MenuID" Type="Edm.String" MaxLength="40">
+                </Property>
+                <Property Name="DateCreate" Type="Edm.DateTimeOffset">
+                </Property>
+                <Property Name="DeliverySlot" Type="Edm.DateTimeOffset">
+                </Property>
+                <Property Name="DateChange" Type="Edm.DateTimeOffset">
+                </Property>
+                <Property Name="DroneID" Type="Edm.String" MaxLength="10">
+                </Property>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean">
+                </Property>
+                <Property Name="Status_ID" Type="Edm.String" Nullable="false">
+                </Property>
+            </EntityType>
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="SalesOrder" EntityType="SciValleyServices.SalesOrder">
+                </EntitySet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
